@@ -1,0 +1,35 @@
+---
+/* The cutout photo sticker.
+   Drop a transparent-background PNG or WebP of the upper body at
+   src/assets/cutout.png (or cutout.webp) and it replaces the drawing.
+   The white die-cut outline and the shadow are CSS filters, so they
+   follow the real silhouette automatically. */
+import { Image } from 'astro:assets';
+import { person, hero } from '../data/site';
+const found = import.meta.glob<{ default: ImageMetadata }>('../assets/cutout.{png,webp}', { eager: true });
+const photo = Object.values(found)[0]?.default;
+---
+<div class="me" id="me" role="img" aria-label={photo ? `Photo sticker of ${person.firstName}` : `Sticker drawing standing in for ${person.firstName}'s photo`}>
+  <span class="me-say" aria-hidden="true"><span id="meSay">{hero.stickerLabel}</span><svg viewBox="0 0 40 34" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4c14-2 26 6 27 24"/><path d="M24 21l7 8 6-9"/></svg></span>
+  <div class="me-in">
+    {photo ? (
+      <Image class="me-art" src={photo} alt="" widths={[200, 400, 600]} sizes="186px" loading="eager" draggable="false" />
+    ) : (
+      <svg class="me-art" viewBox="0 0 200 250" aria-hidden="true">
+        <path d="M14 250v-52c1-27 16-42 44-49l24-9h36l24 9c28 7 43 22 44 49v52z" style="fill:var(--accent)"/>
+        <path d="M57 150c8-22 24-33 43-33s35 11 43 33c-9 17-24 26-43 26s-34-9-43-26z" style="fill:var(--accent-deep)"/>
+        <path d="M79 144c5 14 12 21 21 21s16-7 21-21l-8-6H87z" fill="#F1EFE6"/>
+        <path d="M86 112h28v30c-4 9-9 13-14 13s-10-4-14-13z" fill="#B97F5C"/>
+        <ellipse cx="100" cy="84" rx="36" ry="42" fill="#CB9370"/>
+        <circle cx="63" cy="92" r="7" fill="#CB9370"/><circle cx="137" cy="92" r="7" fill="#CB9370"/>
+        <path d="M61 88c-7-34 9-58 40-58 33 0 47 24 38 58-2-16-8-27-19-31-15 9-33 10-47 4-7 6-11 15-12 27z" fill="#15170F"/>
+        <path d="M84 33c8-10 26-12 38-3-14-2-26 0-38 3z" fill="#15170F"/>
+        <g fill="none" stroke="#15170F" stroke-width="3.2"><rect x="70" y="80" width="25" height="19" rx="7"/><rect x="105" y="80" width="25" height="19" rx="7"/><path d="M95 88c3-3 7-3 10 0M70 87l-7-2M130 87l7-2"/></g>
+        <path d="M90 110c6 5 14 5 20 0" fill="none" stroke="#15170F" stroke-width="2.8" stroke-linecap="round"/>
+        <g fill="none" stroke="#15170F" stroke-width="2.6" stroke-linecap="round"><path d="M88 170l-3 36M112 170l3 40"/><path d="M58 250l9-34h66l9 34" opacity=".35"/><path d="M40 250v-34M160 250v-34" opacity=".28"/></g>
+        <circle cx="85" cy="208" r="3" fill="#15170F"/><circle cx="115" cy="212" r="3" fill="#15170F"/>
+      </svg>
+    )}
+    <i class="me-tape" aria-hidden="true"></i>
+  </div>
+</div>

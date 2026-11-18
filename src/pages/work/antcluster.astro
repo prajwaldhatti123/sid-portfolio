@@ -1,0 +1,266 @@
+---
+/* ANTCLUSTER.COM CASE STUDY.
+   The words are in this file. They are a DRAFT in the designer's voice:
+   he must confirm the role line and every "because" before this goes public
+   (see siddharoodha/antcluster-website/case-study-readme.md). */
+import '@fontsource/space-grotesk/latin-500.css';
+import '@fontsource/jetbrains-mono/latin-500.css';
+import { Image } from 'astro:assets';
+import Case from '../../layouts/Case.astro';
+
+import hero from '../../assets/antcluster/sec-hero.png';
+import full from '../../assets/antcluster/desktop-home.png';
+import graph from '../../assets/antcluster/about-graph.png';
+import hive from '../../assets/antcluster/about-hive.png';
+import swarm from '../../assets/antcluster/about-swarm.png';
+import navOpen from '../../assets/antcluster/sec-nav-open.png';
+import industry from '../../assets/antcluster/sec-industry-hero.png';
+import menu from '../../assets/antcluster/sec-mobile-menu.png';
+import tabBefore from '../../assets/antcluster/trust-tablet-before.png';
+import tabAfter from '../../assets/antcluster/trust-tablet-after.png';
+import mobV2 from '../../assets/antcluster/trust-mobile-v2.png';
+import mobV3 from '../../assets/antcluster/trust-mobile-v3.png';
+
+const chapters = [
+  { id: 'overview', name: 'Overview' },
+  { id: 'readers', name: 'Three readers' },
+  { id: 'idea', name: 'One visual rule' },
+  { id: 'system', name: 'Colour and type' },
+  { id: 'diagrams', name: 'Three diagrams' },
+  { id: 'home', name: 'The home page' },
+  { id: 'growth', name: 'From 1 to 29 pages' },
+  { id: 'small', name: 'Small screens' },
+  { id: 'back', name: 'Looking back' },
+];
+
+const readers = [
+  { who: 'Buyers', sub: 'Technology and security leads', ask: 'Is it safe to connect to our production data, and will it cope with our scale?', where: 'A security section on the home page that walks through four layers, and an Enterprise page for deployment and compliance.' },
+  { who: 'Investors', sub: 'Reading fast', ask: 'What is this in one sentence, and is there real engineering underneath?', where: 'A four-word headline, and an Architecture page that goes through the three layers one at a time.' },
+  { who: 'Analysts', sub: 'Would use it every day', ask: 'Does it actually work on questions like mine?', where: 'A working replica of the product directly under the hero, typing a question and arriving at an answer.' },
+];
+
+const colours = [
+  ['bg-deep', '#080604'], ['bg', '#0C0A08'], ['surface', '#161412'], ['surface-elevated', '#1E1A16'], ['surface-hover', '#262220'], ['border', '#2A241E'], ['text-muted', '#8A7E74'],
+  ['text-secondary', '#C0B4AC'], ['text-primary', '#F0E8E0'], ['accent-light', '#D4A83C'], ['accent', '#C9962C'], ['accent-warm', '#D4663C'], ['trust-green', '#4ADE80'], ['dead-end-red', '#EF4444'],
+];
+
+/* `y` is how far down the long screenshot each section starts (0 to 1). */
+const questions = [
+  { y: 0, q: 'What is it?', a: 'A four-word headline. The database logos sit right under the buttons, because “does it work with ours” is a buyer’s first objection.' },
+  { y: 0.138, q: 'Does it work?', a: 'A replica of the product that plays by itself. It is rebuilt in the page instead of being a video, so it stays sharp and loads fast.' },
+  { y: 0.3, q: 'How does it work?', a: 'The three layers. Text and diagram swap sides on each row, so the eye zigzags down the page the way a trail would.' },
+  { y: 0.6, q: 'Is it for my industry?', a: 'Each industry opens with a question in the buyer’s own words, set in monospace.' },
+  { y: 0.735, q: 'Is it safe?', a: 'Security as a stack you scroll through, one layer at a time, instead of the usual wall of badges.' },
+  { y: 0.865, q: 'What do I do next?', a: 'One button and one promise: a 30-minute demo on a sample of the visitor’s own data.' },
+];
+
+const timeline = [
+  ['26 Apr 2026', 'First version live: one page, seven sections', '1 page'],
+  ['28 Apr', 'Redesign plan written, section by section', ''],
+  ['7 May', 'New design merged', '4 pages'],
+  ['22 May', 'Dropdown navigation, blog, whitepapers, industry pages, customer stories', ''],
+  ['23 May', 'Phone and tablet fixes', ''],
+  ['Sep', 'Privacy and terms; logo and favicon aligned with the product', ''],
+  ['23 Oct', 'Ten learn, guide, tool and comparison pages', '29 pages'],
+];
+---
+<Case
+  index="02"
+  kind="Website · Apr–Oct 2026"
+  title="Antcluster.com"
+  summary="How a product you cannot see got a face, and how a one-page landing site grew into a 29-page website drawn around the way an ant colony finds its way."
+  meta={[
+    { label: 'My role', value: 'Visual and interaction design' },
+    { label: 'Worked with', value: 'The founding engineer, who built it in React' },
+    { label: 'Timeline', value: 'April to October 2026' },
+    { label: 'Live site', value: 'antcluster.com' },
+  ]}
+  chapters={chapters}
+  next={{ index: '01', title: 'StudySync', kind: 'A study-planning app, from a student survey to a prototype tested with five students.', url: '/work/studysync/' }}
+  seoDescription="Antcluster.com case study by Siddharoodha Dhatti: a visual language built on ant trails, a home page ordered as a visitor's questions, and a system that stretched from one page to 29."
+>
+  <Fragment slot="hero">
+    <span class="mono tick tl">Fig. 1</span><span class="mono tick tr">Home, desktop</span>
+    <div class="browser">
+      <div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>antcluster.com</span></div>
+      <Image src={hero} alt="Antcluster.com home page: the headline Enterprise data nervous system on a dark, warm background, two buttons and a row of database logos." widths={[640, 960, 1280, 1920]} sizes="(max-width: 1200px) 92vw, 1100px" loading="eager" quality={70} />
+    </div>
+  </Fragment>
+
+  <section class="cs-sec" id="overview">
+    <p class="mono no">01 — Overview</p>
+    <h2>A product with nothing to photograph, <em>and three readers to convince.</em></h2>
+    <div class="prose" data-rv>
+      <p>Antcluster makes an AI agent that answers business questions straight from a company’s databases. I designed its public website together with the founding engineer.</p>
+      <p>The site began in April 2026 as a single scrolling page. By October it had 29 pages: a home page, product and security pages, five industry pages, a blog, a whitepaper library and a set of long-form guides.</p>
+    </div>
+    <div class="grid3">
+      <div class="card" data-rv><span class="mono lime">Challenge 1</span><h4>There was nothing to show</h4><p>The product is a knowledge graph and a group of agents behind a chat box. Almost every picture on the site had to be drawn from nothing.</p></div>
+      <div class="card" data-rv><span class="mono lime">Challenge 2</span><h4>Three readers, three questions</h4><p>A security lead asks if it is safe. An investor wants the idea in one sentence. An analyst wants to watch it work.</p></div>
+      <div class="card" data-rv><span class="mono lime">Challenge 3</span><h4>A first version that did not hold up</h4><p>Seven sections in a fixed order, no menu on phones, and animated graphics that broke at some screen sizes.</p></div>
+    </div>
+    <div class="score" style="margin-top:10px">
+      <div class="card up" data-rv>
+        <span class="mono">Pages</span>
+        <div class="n" aria-label="From 1 page to 29"><span>1</span><span class="sl" aria-hidden="true">→</span><span class="to count" data-from="1" data-to="29">29</span></div>
+        <p>Built from 14 templates.</p>
+      </div>
+      <div class="card" data-rv>
+        <span class="mono">What I set out to do</span>
+        <ul class="ul">
+          <li><b style="color:var(--ink);font-weight:500">Make the system visible.</b> Give the graph, the planner and the agents each a picture that reads in seconds.</li>
+          <li><b style="color:var(--ink);font-weight:500">Answer every reader early.</b> Within the first few scrolls, or one click from the menu.</li>
+          <li><b style="color:var(--ink);font-weight:500">Show before telling.</b> The product at work, ahead of any description of it.</li>
+          <li><b style="color:var(--ink);font-weight:500">Build parts that stretch.</b> A small set of colours, type and components for every later page.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-sec" id="readers">
+    <p class="mono no">02 — Three readers</p>
+    <h2>Before drawing anything, <em>I wrote down who is reading.</em></h2>
+    <div class="prose" data-rv>
+      <p>For each reader I listed what they are trying to find out and where the site should answer. This table made most of the later decisions: what had to be on the home page, what deserved its own page, and what could be cut.</p>
+    </div>
+    <div class="readers">
+      {readers.map((r) => (
+        <div class="reader" data-rv>
+          <h3>{r.who}<small>{r.sub}</small></h3>
+          <p class="ask"><span class="mono">Needs to find out</span>{r.ask}</p>
+          <p><span class="mono">Where I answered it</span>{r.where}</p>
+        </div>
+      ))}
+    </div>
+    <div class="prose" data-rv>
+      <p>Then I took the first version apart, one section at a time, and asked what each section did for each reader. Most spoke to one and lost the other two. What came out was a written plan for every section: what to keep, what to replace, and which reader the change was for.</p>
+    </div>
+  </section>
+
+  <section class="cs-sec" id="idea">
+    <p class="mono no">03 — One visual rule</p>
+    <h2>The name gave me the idea. <em>Ants have no map.</em></h2>
+    <div class="prose" data-rv>
+      <p>Each ant lays a trail, and the trails that work get walked again until they become a route. That is a fair picture of a product that connects scattered databases and learns which connections to trust.</p>
+    </div>
+    <div class="pull" data-rv>
+      <span class="mono">The rule for every graphic on the site</span>
+      <p>Thin lines that travel, meet and brighten.</p>
+    </div>
+    <div class="grid3">
+      <div class="card" data-rv><span class="mono">Shape</span><h4>Hexagons for structure</h4><p>Anything structural is a hexagon, because that is how a colony builds.</p></div>
+      <div class="card" data-rv><span class="mono">Ground</span><h4>Dark and warm</h4><p>The amber lines read as trails on soil.</p></div>
+      <div class="card" data-rv><span class="mono">Why it helped</span><h4>Two questions per diagram</h4><p>What are the trails here, and where do they meet?</p></div>
+    </div>
+  </section>
+
+  <section class="cs-sec" id="system">
+    <p class="mono no">04 — Colour and type</p>
+    <h2>Fourteen colours. <em>The darks are browns, not greys.</em></h2>
+    <div class="prose" data-rv>
+      <p>Amber marks what matters. A warmer orange is kept for the main button and used nowhere else, so the one thing I want people to press is the only thing in that colour. Green and red appear only where something passes or fails.</p>
+    </div>
+    <div class="swatches" data-rv>
+      {colours.map(([name, hex]) => <div class="sw"><i style={`--c:${hex}`}></i><span><b>{name}</b>{hex}</span></div>)}
+    </div>
+    <div class="type-row">
+      <div class="card" data-rv><p class="big" style="font-family:'Space Grotesk',var(--sans)">Space Grotesk</p><span class="mono">Headings and text · 17px base</span><p>Slightly unusual letterforms give a technical product some character without a second display face.</p></div>
+      <div class="card" data-rv><p class="big" style="font-family:'JetBrains Mono',var(--mono);font-size:clamp(24px,2.8vw,40px);letter-spacing:-.04em">JetBrains Mono</p><span class="mono">Typed questions and labels</span><p>Used wherever the site quotes a question someone might type, so queries look typed and not written.</p></div>
+    </div>
+  </section>
+
+  <section class="cs-sec" id="diagrams">
+    <p class="mono no">05 — Three diagrams</p>
+    <h2>Three layers, three shapes: <em>a web, a tree and a ring.</em></h2>
+    <div class="prose" data-rv>
+      <p>Each layer of the product got a different shape so they can be told apart at a glance. All three share the same line weight, the same corner brackets and the same soft glow, so they still read as one family.</p>
+    </div>
+    <div class="dia">
+      <figure data-rv><div class="im"><Image src={graph} alt="A 3D web of connected nodes in amber, blue and purple." widths={[360, 540, 800]} sizes="(max-width: 960px) 92vw, 340px" loading="lazy" quality={68} /></div><figcaption><b>A web</b><span>The knowledge graph. Amber nodes are data sources, blue are business entities, purple is learned meaning. A real 3D model visitors can turn and zoom.</span></figcaption></figure>
+      <figure data-rv><div class="im"><Image src={hive} alt="A tree diagram: a question splits into parts and comes back as one answer." widths={[360, 540, 800]} sizes="(max-width: 960px) 92vw, 340px" loading="lazy" quality={68} /></div><figcaption><b>A tree</b><span>The planner. A question goes in, is split into parts, handed out and brought back as one answer.</span></figcaption></figure>
+      <figure data-rv><div class="im"><Image src={swarm} alt="Five agents in a ring, their trails meeting in the centre." widths={[360, 540, 800]} sizes="(max-width: 960px) 92vw, 340px" loading="lazy" quality={68} /></div><figcaption><b>A ring</b><span>The agents. Five specialists whose trails light up as they agree on the centre.</span></figcaption></figure>
+    </div>
+    <p class="cap">Lines pulse along their paths to show direction; nothing moves only for decoration. Visitors who ask for reduced motion get the finished state straight away.</p>
+  </section>
+
+  <section class="cs-sec" id="home">
+    <p class="mono no">06 — The home page</p>
+    <h2>Ordered as the questions <em>a first-time visitor asks.</em></h2>
+    <div class="prose" data-rv>
+      <p>Each section answers one question and then gets out of the way. The biggest change from the first version was moving the working demo up to second place, so the claim in the headline is backed up within one scroll.</p>
+    </div>
+    <div class="convo">
+      <ol class="convo-list">
+        {questions.map((x, i) => (
+          <li class:list={['convo-q', { on: i === 0 }]} data-y={x.y}>
+            <span class="mono">Question {i + 1} of {questions.length}</span>
+            <h3>{x.q}</h3>
+            <p>{x.a}</p>
+          </li>
+        ))}
+      </ol>
+      <div class="convo-win">
+        <div class="browser">
+          <div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>antcluster.com — full home page</span></div>
+          <div class="view" tabindex="0" role="group" aria-label="Full home page screenshot"><div class="pan"><Image src={full} alt="The full Antcluster home page from top to bottom: hero, working demo, three layers, industries, security and a closing call to action." widths={[720, 1080, 1440]} sizes="(max-width: 960px) 92vw, 620px" loading="lazy" quality={62} /></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-sec" id="growth">
+    <p class="mono no">07 — From 1 to 29 pages</p>
+    <h2>The early decisions paid off <em>when the site had to grow.</em></h2>
+    <div class="prose" data-rv>
+      <p>In May the site needed a blog, a whitepaper library, industry pages and customer stories, and the flat menu could not hold them. I grouped everything under three dropdowns, Product, Solutions and Resources, and gave every link a one-line description.</p>
+      <p>I designed the industry page once, as a template: a question from that industry, a diagram of its systems joining into one graph, three problems, and a list of common questions. After that, each of the five industries needed only new words.</p>
+    </div>
+    <div class="grid2">
+      <figure class="card" data-rv style="padding:0;overflow:hidden"><Image src={navOpen} alt="The navigation with the Solutions dropdown open, each link with a one-line description." widths={[480, 720, 1080]} sizes="(max-width: 960px) 92vw, 520px" loading="lazy" quality={68} style="display:block;width:100%;height:auto" /><figcaption class="cap" style="padding:0 18px 18px">Three dropdowns, every link described</figcaption></figure>
+      <figure class="card" data-rv style="padding:0;overflow:hidden"><Image src={industry} alt="The top of the manufacturing industry page, opening with a question in monospace." widths={[480, 720, 1080]} sizes="(max-width: 960px) 92vw, 520px" loading="lazy" quality={68} style="display:block;width:100%;height:auto" /><figcaption class="cap" style="padding:0 18px 18px">One industry template, five industries</figcaption></figure>
+    </div>
+    <ol class="tl" data-rv>
+      {timeline.map(([d, t, n]) => <li><span class="mono">{d}</span><span>{t}</span><span class="mono">{n}</span></li>)}
+    </ol>
+  </section>
+
+  <section class="cs-sec" id="small">
+    <p class="mono no">08 — Small screens</p>
+    <h2>The security section failed worst. <em>It took three rounds.</em></h2>
+    <div class="prose" data-rv>
+      <p>I checked every section at phone and tablet widths. Most two-column rows stacked cleanly. On a tablet the security heading slid under the navigation bar; on a phone the stack was squeezed into a corner beside a column of text.</p>
+      <p>I moved the layer selector into a single row above the diagram, gave the diagram the middle of the screen, and put the description underneath. The phone menu became a full-screen panel with the three groups as an accordion and Book a demo as a full-width button.</p>
+    </div>
+    <div class="ba well" data-rv>
+      <span class="mono tick tl">Fig. 2</span><span class="mono tick tr">23 May 2026</span>
+      <figure class="was"><div class="im"><Image src={tabBefore} alt="Security section on a tablet with the heading cut off under the navigation." widths={[240, 360, 520]} sizes="(max-width: 960px) 44vw, 230px" loading="lazy" quality={68} /></div><figcaption class="mono"><span class="mono">Tablet · before</span><b>Heading cut off</b></figcaption></figure>
+      <figure class="now"><div class="im"><Image src={tabAfter} alt="Security section on a tablet, fixed." widths={[240, 360, 520]} sizes="(max-width: 960px) 44vw, 230px" loading="lazy" quality={68} /></div><figcaption class="mono"><span class="mono">Tablet · after</span><b>Selector above the diagram</b></figcaption></figure>
+      <figure class="was"><div class="im"><Image src={mobV2} alt="Security section on a phone, second attempt, still cramped." widths={[200, 300, 390]} sizes="(max-width: 960px) 44vw, 200px" loading="lazy" quality={68} /></div><figcaption class="mono"><span class="mono">Phone · round 2</span><b>Still squeezed</b></figcaption></figure>
+      <figure class="now"><div class="im"><Image src={mobV3} alt="Security section on a phone, final layout." widths={[200, 300, 390]} sizes="(max-width: 960px) 44vw, 200px" loading="lazy" quality={68} /></div><figcaption class="mono"><span class="mono">Phone · round 3</span><b>Diagram in the middle</b></figcaption></figure>
+    </div>
+    <div class="split">
+      <div class="card up" data-rv>
+        <div><span class="mono lime">Phone menu</span><h3>Full screen, three groups</h3><p style="margin-top:10px">The first version had no menu on phones at all.</p></div>
+        <ol class="steps"><li>Product, Solutions and Resources as an accordion</li><li>Every link keeps its one-line description</li><li>Book a demo as a full-width button at the bottom</li></ol>
+      </div>
+      <div class="well" data-rv style="--pw:min(200px,44vw)"><div class="phone" style="background:#161412"><div class="screen" style="background:#0C0A08"><Image src={menu} alt="The Antcluster phone menu open, with three groups and a Book a demo button." widths={[200, 300, 420]} sizes="200px" loading="lazy" quality={68} /></div></div></div>
+    </div>
+  </section>
+
+  <section class="cs-sec" id="back">
+    <p class="mono no">09 — Looking back</p>
+    <h2>Three things I learned, <em>three I would change.</em></h2>
+    <div class="grid3">
+      <div class="card up" data-rv><span class="mono lime">Learned</span><h4>One rule beats a style guide</h4><p>“Trails that meet” answered most questions about new graphics faster than a document of rules would have.</p></div>
+      <div class="card up" data-rv><span class="mono lime">Learned</span><h4>Order is a design decision</h4><p>Moving the demo up the page changed the site more than any visual change I made.</p></div>
+      <div class="card up" data-rv><span class="mono lime">Learned</span><h4>Small screens belong in the first pass</h4><p>The security section would have been simpler drawn phone first, desktop second.</p></div>
+      <div class="card" data-rv><span class="mono">Next</span><h4>Shorten the home page on phones</h4><p>It runs to almost twelve screens. The three-layer section could collapse to one diagram with tabs.</p></div>
+      <div class="card" data-rv><span class="mono">Next</span><h4>Lighten the 3D graph</h4><p>It is the heaviest thing on the page. I would test a drawn version against it.</p></div>
+      <div class="card" data-rv><span class="mono">Next</span><h4>Shorten the security scroll</h4><p>Three and a half screens to get through four layers is a long time to hold someone in one place.</p></div>
+    </div>
+    <div class="sub" data-rv>
+      <span class="mono">See it live</span>
+      <div class="next-links mono"><a class="more go" href="https://antcluster.com" target="_blank" rel="noopener">antcluster.com ↗</a></div>
+    </div>
+  </section>
+</Case>

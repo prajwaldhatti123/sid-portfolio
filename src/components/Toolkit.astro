@@ -1,0 +1,44 @@
+---
+import { toolkit } from '../data/site';
+import { icons } from '../data/icons';
+const count = toolkit.groups.reduce((n, g) => n + g.skills.length, 0);
+const toolCount = toolkit.tools.length + toolkit.ai.length;
+---
+<div class="kit" id="skills" aria-labelledby="kit-h">
+  <div class="kit-h">
+    <h3 id="kit-h">{toolkit.heading}</h3>
+    <span class="mono">{toolkit.note} · {toolCount} tools · {count} skills</span>
+  </div>
+  <div class="kit-grid">
+    <div class="toolbox">
+      <ul class="tools" aria-label="Design tools">
+        {toolkit.tools.map((tl) => (
+          <li class:list={['tool', { main: tl.main }]} data-rv>
+            {tl.main && <span class="stk">Main tool</span>}
+            <span class="logo"><svg viewBox={icons[tl.icon].vb} aria-hidden="true" set:html={icons[tl.icon].body} /></span>
+            <span class="t-name">{tl.name}</span>
+          </li>
+        ))}
+      </ul>
+      <p class="mono ai-h">{toolkit.aiLabel}</p>
+      <ul class="tools ai" aria-label="AI tools">
+        {toolkit.ai.map((tl) => (
+          <li class="tool" data-rv>
+            <span class="logo"><svg viewBox={icons[tl.icon].vb} aria-hidden="true" set:html={icons[tl.icon].body} /></span>
+            <span class="t-name">{tl.name}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+    <div class="skillsets">
+      {toolkit.groups.map((g) => (
+        <div class="skillset" data-rv>
+          <div class="ss-h"><span class="tag">{g.tag}</span><h4>{g.title}</h4></div>
+          <ul>
+            {g.skills.map((sk) => <li><span>{sk.name}</span>{sk.proof && <em class="mono">{sk.proof}</em>}</li>)}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>

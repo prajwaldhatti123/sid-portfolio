@@ -1,0 +1,14 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+---
+<Base title="Page not found · Siddharoodha Dhatti" description="This page does not exist." skipTo="#main" skipLabel="Skip to content" noindex>
+  <Nav home={false} />
+  <main id="main" style="min-height:80svh;display:grid;place-content:center;gap:24px;padding:calc(var(--nav) + 48px) var(--gut) 48px">
+    <p class="mono lime">404 — nothing on this sheet</p>
+    <h1 id="h1">This page isn’t here.</h1>
+    <p><a class="btn solid" href="/"><span>Back to the portfolio</span> <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M1 7h12M8 2l5 5-5 5"/></svg></a></p>
+  </main>
+  <Footer home={false} />
+</Base>

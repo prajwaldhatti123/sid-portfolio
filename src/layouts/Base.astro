@@ -1,0 +1,86 @@
+---
+import '@fontsource/onest/latin-400.css';
+import '@fontsource/onest/latin-500.css';
+import '@fontsource/onest/latin-600.css';
+import '@fontsource/martian-mono/latin-400.css';
+import '@fontsource/martian-mono/latin-500.css';
+import '@fontsource/caveat/latin-600.css';
+import '../styles/tokens.css';
+import '../styles/global.css';
+import { seo, person } from '../data/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+  skipTo?: string;
+  skipLabel?: string;
+  /** 'website' for the home page, 'article' for a case study. */
+  ogType?: 'website' | 'article';
+  /** Extra structured data for this page (schema.org objects). */
+  schema?: Record<string, unknown>[];
+  noindex?: boolean;
+}
+const { title = seo.title, description = seo.description, skipTo = '#work', skipLabel = 'Skip to work', ogType = 'website', schema = [], noindex = false } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const home = new URL('/', Astro.site).href;
+const ogImage = new URL('/og.png', Astro.site).href;
+
+const personSchema = {
+  '@type': 'Person',
+  '@id': `${home}#person`,
+  name: person.name,
+  givenName: person.firstName,
+  jobTitle: person.role,
+  url: home,
+  image: new URL('/apple-touch-icon.png', Astro.site).href,
+  email: `mailto:${person.email}`,
+  address: { '@type': 'PostalAddress', addressLocality: 'Bengaluru', addressRegion: 'Karnataka', addressCountry: 'IN' },
+  sameAs: [person.linkedinUrl, person.framerSiteUrl],
+  knowsAbout: ['User experience design', 'User interface design', 'User research', 'Usability testing', 'Wireframing', 'Prototyping', 'Figma'],
+};
+const siteSchema = { '@type': 'WebSite', '@id': `${home}#site`, url: home, name: seo.title, inLanguage: 'en', author: { '@id': `${home}#person` } };
+const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': [personSchema, siteSchema, ...schema] }).replace(/</g, '\\u003c');
+---
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{title}</title>
+<meta name="description" content={description}>
+<meta name="keywords" content={seo.keywords}>
+<meta name="author" content={person.name}>
+<meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large'}>
+<meta name="theme-color" content="#0A0B08">
+<link rel="canonical" href={canonical}>
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="sitemap" href="/sitemap-index.xml">
+<meta property="og:type" content={ogType}>
+<meta property="og:site_name" content={person.name}>
+<meta property="og:locale" content="en_IN">
+<meta property="og:title" content={title}>
+<meta property="og:description" content={description}>
+<meta property="og:url" content={canonical}>
+<meta property="og:image" content={ogImage}>
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content={`${person.name}, ${person.role}`}>
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content={title}>
+<meta name="twitter:description" content={description}>
+<meta name="twitter:image" content={ogImage}>
+<script type="application/ld+json" is:inline set:html={jsonLd} />
+</head>
+<body>
+<a class="skip" href={skipTo}>{skipLabel}</a>
+<div class="spot" aria-hidden="true"></div>
+<slot />
+<script>
+  import '../scripts/main.ts';
+</script>
+</body>
+</html>

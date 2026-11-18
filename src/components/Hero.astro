@@ -1,0 +1,65 @@
+---
+import { Image } from 'astro:assets';
+import { hero, person } from '../data/site';
+import cutout from '../assets/cutout.png';
+import sketch from '../assets/studysync/sketch-home.png';
+import wire from '../assets/studysync/wire-home.png';
+import final from '../assets/studysync/final-home.png';
+
+const bold = (s: string) => s.replace(/\*\*(.+?)\*\*/g, '<b>$1</b>');
+const s = hero.scrub;
+const widths = [300, 450, 600];
+const sizes = '(max-width: 960px) 72vw, 290px';
+---
+<section class="hero" aria-labelledby="h1">
+  <div class="hero-copy">
+    <div class="who">
+      <Image class="id-art" src={cutout} alt={`Portrait of ${person.name}`} widths={[120, 240, 360]} sizes="104px" loading="eager" quality={82} />
+      <div>
+        <p class="id-name">{person.name}</p>
+        <p class="mono id-role">{hero.eyebrow}</p>
+      </div>
+    </div>
+    <h1 id="h1">{hero.headline.start} <em>{hero.headline.middle} <mark>{hero.headline.marked}</mark></em></h1>
+    <p class="lede" set:html={bold(hero.intro)} />
+    <dl class="facts">
+      {hero.facts.map((f) => <div><dt class="mono">{f.label}</dt><dd>{f.value}</dd></div>)}
+    </dl>
+    <div class="hero-cta">
+      <a class="btn solid" href="#work"><span>{hero.primaryCta}</span> <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M7 1v12M2 8l5 5 5-5"/></svg></a>
+      <a class="btn" href={`mailto:${person.email}`} target="_blank" rel="noopener"><span>{person.email}</span> <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M1 7h12M8 2l5 5-5 5"/></svg></a>
+    </div>
+  </div>
+
+  <div class="stage" id="stage" data-s="2">
+    <div class="readout mono">
+      <span class="st">{s.screen} — {s.stages.map((x) => <b>{x.label}</b>)}</span>
+      <span>Fidelity <b class="lime" id="pct">100</b>%</span>
+    </div>
+
+    <div class="cmp phone" id="cmp">
+      <div class="screen">
+        <div class="layer sketch"><Image src={sketch} alt="Hand-drawn paper sketch of the StudySync home screen: ongoing task details, important tasks and study schedule as boxes." widths={widths} sizes={sizes} loading="eager" quality={70} /></div>
+        <div class="layer wire"><Image src={wire} alt="Grey digital wireframe of the same StudySync home screen." widths={widths} sizes={sizes} loading="eager" quality={72} /></div>
+        <div class="layer final"><Image src={final} alt="Final StudySync home screen: a Biology assignment due in three days, a list of important tasks, and the tab bar." widths={widths} sizes={sizes} loading="eager" fetchpriority="high" quality={72} /></div>
+      </div>
+      <i class="scan" aria-hidden="true"></i>
+    </div>
+
+    <div class="slider">
+      <div class="rail3" id="rail3">
+        <i class="fill" aria-hidden="true"></i>
+        {s.stages.map((_, i) => <i class="stop" data-stop={i} style={`left:${i * 50}%`} aria-hidden="true"></i>)}
+        <button class="grip" id="grip" role="slider" aria-label="Sketch to wireframe to final design" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100" aria-valuetext={s.stages[2].label} aria-orientation="horizontal"><span><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 2 1 6l3 4M8 2l3 4-3 4"/></svg></span></button>
+      </div>
+      <div class="labels mono" aria-hidden="true">{s.stages.map((x, i) => <span data-lab={i}>{x.tag}</span>)}</div>
+    </div>
+
+    {s.notes.map((n) => <p class={`note ${n.side}`} data-s={n.stage} style={`top:${n.top}`}><b>{n.title}</b>{n.text}</p>)}
+
+    <p class="mono drag-hint">{s.hint}</p>
+  </div>
+
+  <span class="mono corner bl" aria-hidden="true">12.9716° N &nbsp;77.5946° E</span>
+  <span class="mono corner br" aria-hidden="true">Sheet 01 / 04 — Cover</span>
+</section>

@@ -1,0 +1,40 @@
+---
+import { about, process } from '../data/site';
+import Toolkit from './Toolkit.astro';
+const bold = (s: string) => s.replace(/\*\*(.+?)\*\*/g, '<b>$1</b>');
+const t = about.training;
+---
+<section class="about" id="about" aria-labelledby="about-h">
+  <div class="sec-h"><h2 id="about-h">{about.heading}</h2><span class="mono">Sheet 03 / 04</span></div>
+  <div class="about-grid">
+    <div class="about-l">
+      <p class="say" data-rv>{about.statement.lead} <span>{about.statement.rest}</span></p>
+      <dl class="stats" data-rv>
+        {about.stats.map((s) => <div><dd>{s.value}</dd><dt class="mono">{s.label}</dt></div>)}
+      </dl>
+    </div>
+    <div class="about-r" data-rv>
+      <div class="school">
+        <div class="school-top"><span class="mono">{t.label}</span><span class="stk">{t.length}</span></div>
+        <p class="school-name">{t.school}</p>
+        <p class="school-course">{t.course}</p>
+        <ul class="chips">{t.covered.map((c) => <li>{c}</li>)}</ul>
+        <p class="school-note">{t.note}</p>
+      </div>
+      {about.paragraphs.map((p) => <p set:html={bold(p)} />)}
+      <dl class="kv">
+        {about.details.map((d) => <div><dt class="mono">{d.label}</dt><dd>{d.value}{d.note && <em>{d.note}</em>}</dd></div>)}
+      </dl>
+    </div>
+  </div>
+
+  <Toolkit />
+
+  <div class="proc" id="process" aria-labelledby="proc-h">
+    <div class="proc-h mono"><span id="proc-h">{process.heading}</span><span>0 ————— 100%</span></div>
+    <div class="ruler" aria-hidden="true"><i id="rmark"></i></div>
+    <ol class="steps5">
+      {process.steps.map((st, i) => <li data-rv><span class="mono lime">{String(i + 1).padStart(2, '0')}</span><h3>{st.name}</h3><p>{st.text}</p></li>)}
+    </ol>
+  </div>
+</section>

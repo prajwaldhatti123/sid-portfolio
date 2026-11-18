@@ -1,0 +1,12 @@
+---
+import { person, footer } from '../data/site';
+interface Props { home?: boolean }
+const { home = true } = Astro.props;
+const year = new Date().getFullYear();
+---
+<footer class="mono">
+  <span>© {year} {person.name}</span>
+  <span>{person.city} <span id="clock">—:—</span> IST</span>
+  <span>{footer.credit}</span>
+  <a href={home ? '#top' : '#main'}>Back to top ↑</a>
+</footer>

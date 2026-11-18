@@ -1,0 +1,29 @@
+---
+import { Image } from 'astro:assets';
+import { person } from '../data/site';
+import avatar from '../assets/avatar.png';
+interface Props { home?: boolean }
+const { home = true } = Astro.props;
+const base = home ? '' : '/';
+const links = ['Work', 'About', 'Skills', 'Process', 'Contact'].map((name) => ({ name, href: `${base}#${name.toLowerCase()}` }));
+---
+<header class="nav">
+  <a class="brand" href={home ? '#top' : '/'} aria-label={`${person.name}, home`}><Image class="ava" src={avatar} alt="" width={32} height={32} densities={[1, 2, 3]} loading="eager" quality={80} /><span>{person.name}</span></a>
+  <nav aria-label="Primary" class="nav-links">
+    <ul class="mono">
+      {links.map((l) => <li><a href={l.href}>{l.name}</a></li>)}
+    </ul>
+  </nav>
+  <div class="nav-r">
+    <span class="mono xy" id="xy" aria-hidden="true">X 0000 &nbsp;Y 0000</span>
+    <a class="mono cv" href={person.resumeUrl} target="_blank" rel="noopener" aria-label="Résumé, PDF"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M6 1v7M3 5.5 6 8.5l3-3M1.5 11h9"/></svg>Résumé</a>
+    <details class="menu" id="menu">
+      <summary aria-label="Menu"><span aria-hidden="true"></span></summary>
+      <nav aria-label="Menu">
+        <ul>
+          {links.map((l, i) => <li><a href={l.href}><span class="mono">{String(i + 1).padStart(2, '0')}</span>{l.name}</a></li>)}
+        </ul>
+      </nav>
+    </details>
+  </div>
+</header>

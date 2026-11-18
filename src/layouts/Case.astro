@@ -1,0 +1,71 @@
+---
+/* Shared frame for a case-study page: cover, chapter index, chapters, next project. */
+import Base from './Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/case.css';
+import { person } from '../data/site';
+
+interface Props {
+  index: string;
+  kind: string;
+  title: string;
+  summary: string;
+  meta: { label: string; value: string }[];
+  chapters: { id: string; name: string }[];
+  next: { index: string; title: string; kind: string; url: string };
+  seoDescription: string;
+}
+const { index, kind, title, summary, meta, chapters, next, seoDescription } = Astro.props;
+const home = new URL('/', Astro.site).href;
+const url = new URL(Astro.url.pathname, Astro.site).href;
+const schema = [
+  { '@type': 'CreativeWork', '@id': `${url}#case-study`, name: `${title} case study`, headline: `${title}: ${kind}`, description: seoDescription, url, inLanguage: 'en', author: { '@id': `${home}#person` }, image: new URL('/og.png', Astro.site).href },
+  { '@type': 'BreadcrumbList', itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Portfolio', item: home },
+    { '@type': 'ListItem', position: 2, name: 'Work', item: `${home}#work` },
+    { '@type': 'ListItem', position: 3, name: title, item: url },
+  ] },
+];
+---
+<Base title={`${title} case study — ${person.name}, UI/UX designer`} description={seoDescription} skipTo="#main" skipLabel="Skip to case study" ogType="article" schema={schema}>
+  <Nav home={false} />
+  <div class="cs-prog" aria-hidden="true"><i id="csProg"></i></div>
+  <main id="main" class="cs">
+    <header class="cs-cover">
+      <p class="mono crumb"><a href="/#work">← All work</a><span>Case study {index} / 02</span><span>{kind}</span></p>
+      <h1 id="h1">{title}</h1>
+      <p class="cs-sum">{summary}</p>
+      <dl class="cs-meta">
+        {meta.map((m) => <div><dt class="mono">{m.label}</dt><dd>{m.value}</dd></div>)}
+      </dl>
+      <div class="cs-hero well"><slot name="hero" /></div>
+    </header>
+
+    <div class="cs-body">
+      <aside class="cs-index" aria-label="Chapters">
+        <p class="mono">Chapters</p>
+        <ol>
+          {chapters.map((c, i) => <li><a href={`#${c.id}`}><span class="mono">{String(i + 1).padStart(2, '0')}</span>{c.name}</a></li>)}
+        </ol>
+      </aside>
+      <div class="cs-main">
+        <slot />
+      </div>
+    </div>
+
+    <section class="cs-next" aria-label="Next">
+      <a class="next-card" href={next.url}>
+        <span class="mono">Next case study · {next.index}</span>
+        <span class="next-t">{next.title}<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M1 7h12M8 2l5 5-5 5"/></svg></span>
+        <span class="next-k">{next.kind}</span>
+      </a>
+      <div class="next-side">
+        <span class="mono">Want to talk it through?</span>
+        <a class="next-mail" href={`mailto:${person.email}`} target="_blank" rel="noopener">{person.email}</a>
+        <div class="next-links mono"><a class="more" href={person.resumeUrl} target="_blank" rel="noopener">Résumé ↓</a><a class="more" href={person.linkedinUrl} target="_blank" rel="noopener">LinkedIn ↗</a><a class="more" href="/#work">All work</a></div>
+      </div>
+    </section>
+  </main>
+  <Footer home={false} />
+</Base>

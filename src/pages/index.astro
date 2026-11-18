@@ -1,0 +1,20 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import Work from '../components/Work.astro';
+import About from '../components/About.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+// Case-study pages will live at src/pages/work/studysync.astro and src/pages/work/antcluster.astro.
+---
+<Base>
+  <Nav />
+  <main id="top">
+    <Hero />
+    <Work />
+    <About />
+    <Contact />
+  </main>
+  <Footer />
+</Base>

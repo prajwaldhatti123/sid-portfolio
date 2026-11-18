@@ -1,0 +1,49 @@
+/* =====================================================================
+   DESIGN TOKENS — colours, type and spacing for the whole site.
+   To recolour the site, change --accent (one line) and nothing else.
+   ===================================================================== */
+:root{
+  /* the one accent colour */
+  --accent:#C8F250;
+  --accent-ink:#0A0B08;                 /* text that sits on the accent */
+  --accent-deep:color-mix(in srgb,var(--accent) 80%,#000);
+
+  /* three surface tiers: page < surface < raised. Wells sink below the page. */
+  --bg:#0A0B08;
+  --band:#10120C;
+  --well:#0C0E09;
+  --s1:#191C14;
+  --s2:#272B20;
+
+  /* text */
+  --ink:#ECEBE4;
+  --mute:#969C8B;
+  --dim:#62675A;
+
+  /* lines and edges */
+  --line:rgba(236,235,228,.12);
+  --line2:rgba(236,235,228,.22);
+  --edge:rgba(236,235,228,.13);
+  --edge2:rgba(236,235,228,.22);
+
+  /* light surfaces (stickers, paper) */
+  --paper:#F1EFE6;
+  --paper-ink:#15170F;
+
+  /* depth */
+  --hi:inset 0 1px 0 rgba(236,235,228,.09);
+  --lift:0 16px 28px -14px rgba(0,0,0,.85),0 2px 3px rgba(0,0,0,.45);
+  --drop:0 36px 60px -32px rgba(0,0,0,.95),0 2px 4px rgba(0,0,0,.4);
+
+  /* layout */
+  --gut:clamp(20px,3.4vw,48px);
+  --nav:56px;
+
+  /* type */
+  --sans:"Onest",ui-sans-serif,system-ui,sans-serif;
+  --mono:"Martian Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  --hand:"Caveat","Segoe Print","Bradley Hand",cursive;
+
+  /* motion */
+  --ease:cubic-bezier(.2,.7,.1,1);
+}

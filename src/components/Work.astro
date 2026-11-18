@@ -1,0 +1,83 @@
+---
+import { Image } from 'astro:assets';
+import { work } from '../data/site';
+import capture from '../assets/studysync/final-capture.png';
+import tracker from '../assets/studysync/final-tracker.png';
+import calendar from '../assets/studysync/final-calendar.png';
+import antHero from '../assets/antcluster/sec-hero.png';
+import antMenu from '../assets/antcluster/sec-mobile-menu.png';
+import antRing from '../assets/antcluster/about-swarm.png';
+
+const [study, ant] = work.projects;
+const phoneWidths = [180, 270, 360];
+const phoneSizes = '(max-width: 960px) 27vw, 178px';
+const total = String(work.projects.length).padStart(2, '0');
+---
+<section class="work" id="work" aria-labelledby="work-h">
+  <div class="sec-h">
+    <h2 id="work-h">{work.heading}<sup>{total}</sup></h2>
+    <span class="sec-r"><span class="mono">{work.note}</span><span class="stk">{work.sticker}</span></span>
+  </div>
+
+  <div class="rail">
+    <div class="track" id="track">
+
+      <article class="panel" id={`work-${study.id}`}>
+        <div class="p-txt">
+          <div class="p-top">
+            <div class="idx mono"><span class="lime">{study.index}</span><span>{study.kind}</span></div>
+            <h3><a class="p-link" href={study.caseUrl}>{study.title}<span class="sr"> — {work.openLabel.toLowerCase()}</span></a></h3>
+            <p>{study.summary}</p>
+          </div>
+          <dl class="spec">{study.spec.map((r) => <div><dt class="mono">{r.label}</dt><dd>{r.value}</dd></div>)}</dl>
+          <div class="metric">
+            <div class="big" aria-label={`${study.metric.to} of ${study.metric.of} ${study.metric.unit}`}><span class="to count" data-from={study.metric.from} data-to={study.metric.to}>{study.metric.to}</span><span class="arr" aria-hidden="true">/</span><span>{study.metric.of}</span><small>{study.metric.unit}</small></div>
+            <p class="mono"><span>{study.metricNote}</span><span class="links">{study.links.map((l) => <a class="more" href={l.url} target="_blank" rel="noopener">{l.label} ↗</a>)}</span></p>
+          </div>
+        </div>
+        <div class="p-vis">
+          <span class="mono tick tl">{study.figure.tl}</span><span class="mono tick tr">{study.figure.tr}</span><span class="mono tick bl">{study.figure.bl}</span>
+          <span class="open" aria-hidden="true">{work.openLabel}<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 7h12M8 2l5 5-5 5"/></svg></span>
+          <div class="vwrap">
+            <div class="trio">
+              <div class="phone"><div class="screen"><Image src={capture} alt="StudySync Smart Capture screen with three options: camera, files and gallery." widths={phoneWidths} sizes={phoneSizes} loading="lazy" quality={70} /></div></div>
+              <div class="phone"><div class="screen"><Image src={tracker} alt="StudySync task tracker: an ongoing Biology assignment with due date, days remaining, a streak count and a reminder every hour." widths={phoneWidths} sizes={phoneSizes} loading="lazy" quality={70} /></div></div>
+              <div class="phone"><div class="screen"><Image src={calendar} alt="StudySync calendar for June with ongoing and upcoming assignments listed below." widths={phoneWidths} sizes={phoneSizes} loading="lazy" quality={70} /></div></div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="panel" id={`work-${ant.id}`}>
+        <div class="p-txt">
+          <div class="p-top">
+            <div class="idx mono"><span class="lime">{ant.index}</span><span>{ant.kind}</span></div>
+            <h3><a class="p-link" href={ant.caseUrl}>{ant.title}<span class="sr"> — {work.openLabel.toLowerCase()}</span></a></h3>
+            <p>{ant.summary}</p>
+          </div>
+          <dl class="spec">{ant.spec.map((r) => <div><dt class="mono">{r.label}</dt><dd>{r.value}</dd></div>)}</dl>
+          <div class="metric">
+            <div class="big" aria-label={`${ant.metric.from} page grew to ${ant.metric.to} pages`}><span>{ant.metric.from}</span><span class="arr" aria-hidden="true">→</span><span class="to count" data-from={ant.metric.from} data-to={ant.metric.to}>{ant.metric.to}</span><small>{ant.metric.unit}</small></div>
+            <p class="mono"><span>{ant.metricNote}</span><span class="links">{ant.links.map((l) => <a class="more" href={l.url} target="_blank" rel="noopener">{l.label} ↗</a>)}</span></p>
+          </div>
+        </div>
+        <div class="p-vis">
+          <span class="mono tick tl">{ant.figure.tl}</span><span class="mono tick tr">{ant.figure.tr}</span><span class="mono tick bl">{ant.figure.bl}</span>
+          <span class="open" aria-hidden="true">{work.openLabel}<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 7h12M8 2l5 5-5 5"/></svg></span>
+          <div class="vwrap">
+            <div class="shots">
+              <div class="browser">
+                <div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>antcluster.com</span></div>
+                <Image src={antHero} alt="Antcluster.com home page: the headline Enterprise data nervous system on a dark, warm background, with two buttons and a row of database logos." widths={[480, 720, 960, 1280]} sizes="(max-width: 960px) 88vw, 560px" loading="lazy" quality={68} />
+              </div>
+              <div class="chip"><Image src={antRing} alt="Diagram of five agents arranged in a ring, their trails meeting in the centre." widths={[200, 320, 420]} sizes="(max-width: 960px) 32vw, 200px" loading="lazy" quality={66} /></div>
+              <div class="mini"><Image src={antMenu} alt="Antcluster phone menu: three groups as an accordion with a full-width Book a demo button." widths={[130, 200, 260]} sizes="(max-width: 960px) 20vw, 130px" loading="lazy" quality={66} /></div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+  <div class="rail-prog mono" aria-hidden="true"><span><b class="lime" id="ridx">01</b> / {total}</span><span class="bar"><i id="rbar"></i></span><span>Keep scrolling</span></div>
+</section>

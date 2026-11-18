@@ -1,0 +1,366 @@
+---
+/* STUDYSYNC CASE STUDY.
+   The words are in this file. Numbers and findings come from the
+   designer's own Figma case study; change them only if his file changes. */
+import { Image } from 'astro:assets';
+import Case from '../../layouts/Case.astro';
+import { work } from '../../data/site';
+
+import home from '../../assets/studysync/final-home.png';
+import calendar from '../../assets/studysync/final-calendar.png';
+import capture from '../../assets/studysync/final-capture.png';
+import tracker from '../../assets/studysync/final-tracker.png';
+import splash from '../../assets/studysync/final-splash.png';
+import sketches from '../../assets/studysync/sketches-sheet.png';
+import wires from '../../assets/studysync/wireframes-sheet.png';
+
+const project = work.projects[0];
+
+const chapters = [
+  { id: 'overview', name: 'Overview' },
+  { id: 'research', name: 'Research' },
+  { id: 'define', name: 'Who it is for' },
+  { id: 'structure', name: 'Structure' },
+  { id: 'sketches', name: 'Paper sketches' },
+  { id: 'wireframes', name: 'Wireframes' },
+  { id: 'final', name: 'Final design' },
+  { id: 'testing', name: 'Usability test' },
+  { id: 'next', name: 'What comes next' },
+];
+
+const pairs = [
+  { q: 'Students forget assignment deadlines and important academic tasks.', a: 'Task reminders and deadline tracking, so work is finished on time.' },
+  { q: 'Assignments are spread across many subjects, and it is hard to tell what needs attention first.', a: 'Subject-wise tasks, priorities and clear status labels.' },
+  { q: 'It is hard to keep a steady study schedule or see progress.', a: 'Study scheduling, progress tracking and streaks that reward consistency.' },
+];
+
+const survey = [
+  {
+    q: 'How do you keep track of your academic tasks and deadlines?',
+    rows: [['WhatsApp messages and groups', 38], ['Google Calendar', 22], ['A manual list (notebook or phone)', 16], ['College portal', 14], ['Others', 10]],
+  },
+  {
+    q: 'If you use apps for academics, what is the main reason?',
+    rows: [['Keeping track of assignments and due dates', 42], ['Study materials and notes', 24], ['Reminders and notifications', 18], ['Attendance and marks', 10], ['Others', 6]],
+  },
+  {
+    q: 'How do you prioritise multiple academic tasks?',
+    rows: [['By deadline', 32], ['By importance or credits', 26], ['By subject weightage', 18], ['By what needs doing first', 14], ['Others', 10]],
+  },
+] as const;
+
+const competitors = ['MyHomework', 'MyStudyLife', 'MyStudyPlanner', 'Google Classroom', 'Notion', 'Microsoft To Do'];
+const compared = ['Dashboard', 'Study planning', 'Progress tracker', 'Reminders', 'Smart capture'];
+
+const map = [
+  { name: 'Home', items: ['Important tasks', 'Study schedule', 'Study material', 'Task streak'] },
+  { name: 'Calendar', items: ['Upcoming events', 'Add or change an event', 'Calendar filters'] },
+  { name: 'Smart Capture', items: ['Open camera', 'Open gallery', 'Upload files'], hl: true },
+  { name: 'Task Tracker', items: ['Task list', 'Edit task', 'Task history', 'Scanned task details'] },
+  { name: 'Account', items: ['Edit account', 'Preferences', 'Notifications', 'Log out'] },
+];
+
+const journey = [
+  ['Gets the assignment', 'in a WhatsApp group'],
+  ['Opens StudySync', 'and logs in'],
+  ['Opens Smart Capture', ''],
+  ['Uploads the screenshot', 'camera, files or gallery'],
+  ['Checks what was read', 'task name, due date, priority, reminder'],
+  ['Confirms the details', 'or edits what is wrong'],
+  ['Gets reminders', 'until the task is done'],
+];
+
+const screens = [
+  { img: splash, name: 'Splash', note: 'Plan · Study · Achieve', alt: 'StudySync splash screen: the logo on a blue background.' },
+  { img: home, name: 'Home', note: 'Next deadline first', alt: 'StudySync home: a Biology assignment due in three days, then a list of important tasks.' },
+  { img: calendar, name: 'Calendar', note: 'Ongoing and upcoming', alt: 'StudySync calendar for June with ongoing and upcoming assignments listed below it.' },
+  { img: capture, name: 'Smart Capture', note: 'Camera, files, gallery', alt: 'Smart Capture screen with three options: camera, files and gallery.' },
+  { img: tracker, name: 'Task tracker', note: 'Ongoing, pending, done', alt: 'Task tracker: an ongoing Biology assignment with due date, days remaining, streak and an hourly reminder.' },
+];
+
+const people = [
+  { who: 'P1', about: '19, CSE', t: [12, 25, 18, 20] },
+  { who: 'P2', about: '19, ECE', t: [15, 32, 22, 24] },
+  { who: 'P3', about: '17, Science', t: [18, 45, 26, 30] },
+  { who: 'P4', about: '20, CSE', t: [10, 27, 40, 18] },
+  { who: 'P5', about: '18, Commerce', t: [28, 31, 21, 35] },
+];
+const tasks = ['Find today’s tasks', 'Add a task', 'Complete a task', 'Set a reminder'];
+const avg = (i: number) => Math.round(people.reduce((n, p) => n + p.t[i], 0) / people.length);
+const slowest = (i: number) => Math.max(...people.map((p) => p.t[i]));
+
+const pw = [200, 300, 420];
+const ps = '(max-width: 960px) 44vw, 230px';
+---
+<Case
+  index="01"
+  kind="UX case study · 2026"
+  title="StudySync"
+  summary="A study-planning app that keeps assignments, deadlines, schedules and reminders in one place, designed from a student survey to a tested iOS and Android prototype."
+  meta={[
+    { label: 'My role', value: 'UI/UX designer: research, flows, wireframes, UI, prototypes' },
+    { label: 'Platforms', value: 'iOS and Android' },
+    { label: 'Scope', value: '30+ screens, two prototypes' },
+    { label: 'Tools', value: 'Figma, Framer, ChatGPT' },
+  ]}
+  chapters={chapters}
+  next={{ index: '02', title: 'Antcluster.com', kind: 'A one-page site grown into a 29-page website, drawn around one visual rule.', url: '/work/antcluster/' }}
+  seoDescription="StudySync case study by Siddharoodha Dhatti: student survey, persona, app structure, paper sketches, wireframes, final UI and a usability test with five students."
+>
+  <Fragment slot="hero">
+    <span class="mono tick tl">Fig. 1</span><span class="mono tick tr">Final iOS screens</span>
+    <div class="trio">
+      {[calendar, capture, home, tracker, splash].map((img, i) => (
+        <div class="phone"><div class="screen"><Image src={img} alt={i === 2 ? 'StudySync home screen with the next deadline and a list of important tasks.' : ''} widths={pw} sizes={ps} loading="eager" quality={72} /></div></div>
+      ))}
+    </div>
+  </Fragment>
+
+  <section class="cs-sec" id="overview">
+    <p class="mono no">01 — Overview</p>
+    <h2>Three problems students kept describing, <em>and what the app does about each.</em></h2>
+    <div class="prose" data-rv>
+      <p>StudySync is for school, PUC and college students who juggle homework, several subjects and deadlines. I worked on it as the UI/UX designer: understanding what students need, then drawing the flows, wireframes and final screens in Figma, with clickable prototypes for iOS and Android.</p>
+    </div>
+    <div class="pairs">
+      {pairs.map((p) => (
+        <div class="pair" data-rv>
+          <div class="q"><span class="mono">Problem</span>{p.q}</div>
+          <i aria-hidden="true"></i>
+          <div class="a"><span class="mono">In StudySync</span>{p.a}</div>
+        </div>
+      ))}
+    </div>
+    <div class="sub" data-rv>
+      <span class="mono">Try it</span>
+      <div class="next-links mono">{project.links.map((l) => <a class="more go" href={l.url} target="_blank" rel="noopener">{l.label} ↗</a>)}</div>
+    </div>
+  </section>
+
+  <section class="cs-sec" id="research">
+    <p class="mono no">02 — Research</p>
+    <h2>Deadlines arrive on WhatsApp. <em>That is where they get lost.</em></h2>
+    <div class="prose" data-rv>
+      <p>I ran a 12-question survey with students and looked at six apps they already use. Three of the survey answers shaped the product more than the rest.</p>
+    </div>
+    <div class="grid3">
+      {survey.map((s, i) => (
+        <div class="card chart" data-rv data-draw>
+          <span class="mono">Survey · Q{i + 1}</span>
+          <h4>{s.q}</h4>
+          <ul class="bars">
+            {s.rows.map(([label, v]) => (
+              <li><span class="row"><span>{label}</span><b>{v}%</b></span><span class="bar"><i style={`--v:${(v / s.rows[0][1]) * 100}%`}></i></span></li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+
+    <div class="pull" data-rv>
+      <span class="mono">The insight I designed around</span>
+      <p>The problem isn’t completing tasks. It’s remembering them.</p>
+    </div>
+
+    <div class="grid2">
+      <div class="card" data-rv>
+        <span class="mono">Finding 1 · Scattered information</span>
+        <h4>Updates come from WhatsApp, Google Drive and the college portal.</h4>
+        <p>Students don’t need more information. They need what they already have in one place. <b>That became the Home dashboard.</b></p>
+      </div>
+      <div class="card" data-rv>
+        <span class="mono">Finding 2 · Deadlines and tasks</span>
+        <h4>Students forget pending work and lose track of what is due when.</h4>
+        <p>Remembering is the hard part, not doing. <b>That became the task tracker and reminders.</b></p>
+      </div>
+    </div>
+
+    <div class="sub" data-rv>
+      <span class="mono">Six apps compared, on five things</span>
+      <ul class="tags">{competitors.map((c) => <li>{c}</li>)}</ul>
+      <ul class="tags">{compared.map((c) => <li class:list={{ hl: c === 'Smart capture' }}>{c}</li>)}</ul>
+    </div>
+  </section>
+
+  <section class="cs-sec" id="define">
+    <p class="mono no">03 — Who it is for</p>
+    <h2>Ankit, first year, <em>new to college and to the city.</em></h2>
+    <div class="persona">
+      <div class="card up who" data-rv>
+        <span class="ini" aria-hidden="true">AK</span>
+        <div><span class="mono">Persona</span><h3>Ankit Kumar</h3></div>
+        <dl>
+          <div><dt class="mono">Age</dt><dd>20</dd></div>
+          <div><dt class="mono">Studies</dt><dd>B.E. Computer Science</dd></div>
+          <div><dt class="mono">Lives in</dt><dd>Bengaluru</dd></div>
+        </dl>
+        <p>He is still adjusting to college. He uses several apps to stay productive, but forgets tasks or puts them off when a few things pile up.</p>
+      </div>
+      <div class="lists">
+        <div class="card" data-rv>
+          <span class="mono">Wants</span>
+          <ul class="ul"><li>To stay on track with academics</li><li>To manage tasks and deadlines more easily</li><li>To stop putting things off</li><li>To see his own progress</li></ul>
+        </div>
+        <div class="card" data-rv>
+          <span class="mono">Struggles with</span>
+          <ul class="ul"><li>Finishing tasks without reminders</li><li>Knowing where to find academic material</li><li>Managing tasks in a structured way</li><li>A language barrier in a new city</li></ul>
+        </div>
+        <div class="card" data-rv>
+          <span class="mono">Says</span>
+          <ul class="ul"><li>“I’m not getting proper, frequent reminders.”</li><li>“I want to structure tasks so I finish them faster.”</li></ul>
+        </div>
+        <div class="card" data-rv>
+          <span class="mono">Does</span>
+          <ul class="ul"><li>Writes sticky notes for deadlines</li><li>Checks several apps to find one update</li><li>Plans study time, then struggles to follow it</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-sec" id="structure">
+    <p class="mono no">04 — Structure</p>
+    <h2>A card sort turned the feature list <em>into five tabs.</em></h2>
+    <div class="prose" data-rv>
+      <p>I sorted every feature into groups, and the groups became the tab bar. Smart Capture, the quickest way to get a task into the app, sits in the middle.</p>
+    </div>
+    <div class="map">
+      {map.map((c, i) => (
+        <div class:list={['col', { hl: c.hl }]} data-rv>
+          <h4>{c.name}<span class="mono">{String(i + 1).padStart(2, '0')}</span></h4>
+          <ul>{c.items.map((it) => <li>{it}</li>)}</ul>
+        </div>
+      ))}
+    </div>
+
+    <div class="sub">
+      <span class="mono">The journey I designed for · from a WhatsApp message to a reminder</span>
+      <ol class="flow" style={`--n:${journey.length}`} data-rv>
+        {journey.map(([a, b]) => <li>{a}{b && <small>{b}</small>}</li>)}
+      </ol>
+    </div>
+    <div class="sub" data-rv>
+      <span class="mono">Four task flows mapped before any screen was drawn</span>
+      <ul class="tags"><li>Add a task</li><li>Search for a task</li><li>Mark a task as completed</li><li>Edit a task’s reminder</li></ul>
+    </div>
+  </section>
+
+  <section class="cs-sec" id="sketches">
+    <p class="mono no">05 — Paper sketches</p>
+    <h2>Sixteen screens on paper <em>before I opened Figma.</em></h2>
+    <div class="prose" data-rv>
+      <p>I drew onboarding, login, Home, Smart Capture, the tracker, search and task details as boxes and labels, to settle what goes where.</p>
+    </div>
+    <figure class="fig well" data-rv>
+      <span class="mono tick tl">Fig. 2</span><span class="mono tick tr">Pen on dotted paper</span>
+      <div class="paper"><Image src={sketches} alt="Sixteen hand-drawn phone screens: onboarding, login, home, smart capture, task tracker, search and task details." widths={[640, 960, 1440, 1920]} sizes="(max-width: 960px) 92vw, 900px" loading="lazy" quality={70} /></div>
+    </figure>
+    <p class="cap">Home on paper already has the final order: the ongoing task on top, important tasks under it, then the study schedule.</p>
+  </section>
+
+  <section class="cs-sec" id="wireframes">
+    <p class="mono no">06 — Wireframes</p>
+    <h2>Thirty-plus screens in grey, <em>every flow connected.</em></h2>
+    <div class="prose" data-rv>
+      <p>The wireframes kept the sketch layouts and replaced scribbles with real labels, dates and states. No colour yet, so the only thing to judge was whether the flow made sense.</p>
+    </div>
+    <figure class="fig tall well" data-rv>
+      <span class="mono tick tl">Fig. 3</span><span class="mono tick tr">Digital wireframes, Figma</span>
+      <div class="paper"><Image src={wires} alt="Nine grey wireframe screens: splash, onboarding, sign up, home, calendar, smart capture, task tracker, account and new task." widths={[480, 720, 1080]} sizes="(max-width: 960px) 88vw, 520px" loading="lazy" quality={70} /></div>
+    </figure>
+  </section>
+
+  <section class="cs-sec" id="final">
+    <p class="mono no">07 — Final design</p>
+    <h2>One blue, soft cards, <em>and the next deadline always on top.</em></h2>
+    <div class="strip well" data-rv>
+      <span class="mono tick tl">Fig. 4</span><span class="mono tick tr">Scroll sideways →</span>
+      <div class="strip-in" tabindex="0" role="group" aria-label="Final StudySync screens">
+        {screens.map((s) => (
+          <figure>
+            <div class="phone"><div class="screen"><Image src={s.img} alt={s.alt} widths={pw} sizes="210px" loading="lazy" quality={72} /></div></div>
+            <figcaption class="mono"><b>{s.name}</b>{s.note}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+
+    <div class="split">
+      <div class="card up" data-rv>
+        <div>
+          <span class="mono lime">The feature that answers the insight</span>
+          <h3>Smart Capture</h3>
+          <p style="margin-top:10px">If remembering is the problem, typing a task in by hand is one more thing to forget. Smart Capture reads it from a photo or a screenshot.</p>
+        </div>
+        <ol class="steps">
+          <li>Pick camera, files or gallery</li>
+          <li>The app reads the task name, due date and priority</li>
+          <li>Check the details and fix anything that is wrong</li>
+          <li>Set a reminder, and the task is in the tracker</li>
+        </ol>
+      </div>
+      <div class="well" data-rv>
+        <div class="trio">
+          <div class="phone"><div class="screen"><Image src={capture} alt="Smart Capture options: camera, files, gallery." widths={pw} sizes="190px" loading="lazy" quality={72} /></div></div>
+          <div class="phone"><div class="screen"><Image src={tracker} alt="The task in the tracker with its due date, days remaining and an hourly reminder." widths={pw} sizes="190px" loading="lazy" quality={72} /></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-sec" id="testing">
+    <p class="mono no">08 — Usability test</p>
+    <h2>Five students, four tasks, <em>timed on the prototype.</em></h2>
+    <div class="prose" data-rv>
+      <p>The goal was to see how easily students could find their way around and manage tasks. Participants were 17 to 20 years old, from school and college, and each one did the same four tasks on the clickable prototype.</p>
+    </div>
+    <div class="score">
+      <div class="card up" data-rv>
+        <span class="mono">Task attempts completed</span>
+        <div class="n" aria-label="20 of 20"><span class="to count" data-from="0" data-to="20">20</span><span class="sl" aria-hidden="true">/</span><span>20</span></div>
+        <p>Every participant finished every task.</p>
+      </div>
+      <div class="card" data-rv>
+        <span class="mono">Average time per task</span>
+        <ul class="bars" data-draw>
+          {tasks.map((t, i) => <li><span class="row"><span>{t}</span><b>{avg(i)}s</b></span><span class="bar"><i style={`--v:${(avg(i) / 32) * 100}%`}></i></span></li>)}
+        </ul>
+      </div>
+    </div>
+    <div class="tbl" data-rv>
+      <table>
+        <thead>
+          <tr><th>Task</th>{people.map((p) => <th>{p.who}<small>{p.about}</small></th>)}<th>Average</th></tr>
+        </thead>
+        <tbody>
+          {tasks.map((t, i) => (
+            <tr><th scope="row">{t}</th>{people.map((p) => <td class:list={{ slow: p.t[i] === slowest(i) }}><i aria-hidden="true"></i>{p.t[i]}s</td>)}<td class="avg">{avg(i)}s</td></tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="cap">A dot means the task was completed. The brighter number in each row is the slowest attempt.</p>
+
+    <div class="sub">
+      <span class="mono">What the test found</span>
+      <div class="fixes" style="margin-top:0">
+        <div class="fix" data-rv><span class="mono">01</span><p><span class="mono">Observed</span>The Add Task button was not noticed straight away on the task list. Adding a task was also the slowest of the four, at 32 seconds on average.</p><p><span class="mono">Change</span>Make the Add Task button more prominent.</p></div>
+        <div class="fix" data-rv><span class="mono">02</span><p><span class="mono">Observed</span>Some students missed the confirmation after completing a task.</p><p><span class="mono">Change</span>Still open. See the next chapter.</p></div>
+        <div class="fix" data-rv><span class="mono">03</span><p><span class="mono">Observed</span>Streak information was hard to find for first-time users.</p><p><span class="mono">Change</span>Still open. See the next chapter.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-sec" id="next">
+    <p class="mono no">09 — What comes next</p>
+    <h2>Everyone finished. <em>Three things still slowed them down.</em></h2>
+    <div class="grid3">
+      <div class="card" data-rv><span class="mono lime">01</span><h4>A louder Add Task button</h4><p>It is the action the whole app depends on, and it was the one people looked for longest.</p></div>
+      <div class="card" data-rv><span class="mono lime">02</span><h4>A confirmation nobody can miss</h4><p>Completing a task should feel finished. Some students were not sure it had worked.</p></div>
+      <div class="card" data-rv><span class="mono lime">03</span><h4>Streaks where new users look</h4><p>Streaks are meant to build the habit, so first-time users need to see them without hunting.</p></div>
+    </div>
+    <div class="grid2">
+      <div class="card up" data-rv><span class="mono">An idea from the journey map</span><h4>Share to StudySync</h4><p>Assignments arrive in other apps. Sending one straight from WhatsApp into StudySync would skip the screenshot step.</p></div>
+      <div class="card up" data-rv><span class="mono">Open the prototypes</span><h4>Click through it yourself</h4><p class="next-links mono" style="margin-top:16px">{project.links.map((l) => <a class="more go" href={l.url} target="_blank" rel="noopener">{l.label} ↗</a>)}</p></div>
+    </div>
+  </section>
+</Case>

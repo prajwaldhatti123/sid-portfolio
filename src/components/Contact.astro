@@ -1,0 +1,18 @@
+---
+import { contact, person } from '../data/site';
+const linkedinLabel = 'in/siddharoodha-dhatti';
+---
+<section class="contact" id="contact" aria-labelledby="contact-h">
+  <div class="c-card">
+    <div class="badge" aria-hidden="true"><svg viewBox="0 0 120 120"><defs><path id="bp" d="M60 60m-43 0a43 43 0 1 1 86 0a43 43 0 1 1-86 0"/></defs><circle cx="60" cy="60" r="59" fill="#F1EFE6"/><g class="spin"><text font-family="Martian Mono, monospace" font-size="9" font-weight="500" fill="#15170F"><textPath href="#bp" textLength="266" lengthAdjust="spacing">{contact.badgeText}</textPath></text></g><circle cx="60" cy="60" r="19" style="fill:var(--accent)"/><path d="M53 67l14-14M56 53h11v11" fill="none" stroke="#15170F" stroke-width="2.4"/></svg></div>
+    <p class="mono eyebrow">Sheet 04 / 04 — {contact.eyebrow}</p>
+    <h2 id="contact-h" data-rv>{contact.heading.lead} <em>{contact.heading.rest}</em></h2>
+    <a class="mail" href={`mailto:${person.email}`} target="_blank" rel="noopener" data-rv>{person.email} <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M2 12 12 2M4 2h8v8"/></svg></a>
+    <dl class="c-row">
+      <div><dt class="mono">Phone / WhatsApp</dt><dd><a href={person.whatsappUrl} target="_blank" rel="noopener">{person.phone}</a></dd></div>
+      <div><dt class="mono">LinkedIn</dt><dd><a href={person.linkedinUrl} target="_blank" rel="noopener">{linkedinLabel}</a></dd></div>
+      <div><dt class="mono">Résumé</dt><dd><a href={person.resumeUrl} target="_blank" rel="noopener">One page, PDF</a></dd></div>
+      <div><dt class="mono">Based in</dt><dd>{person.location}</dd></div>
+    </dl>
+  </div>
+</section>
